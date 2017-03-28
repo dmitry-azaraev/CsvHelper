@@ -160,6 +160,12 @@ namespace CsvHelper.Configuration
 
 			Data.Constant = constantValue;
 			Data.IsConstantSet = true;
+			Data.ConstantType = typeof(T);
+
+			if (Data.TypeConverter == null)
+			{
+				Data.TypeConverter = TypeConverterFactory.GetConverter(typeof(T));
+			}
 
 			return this;
 		}
@@ -212,6 +218,46 @@ namespace CsvHelper.Configuration
 		/// Type converter options.
 		/// </summary>
 		public virtual MapTypeConverterOption TypeConverterOption { get; }
+
+		public virtual CsvPropertyMap Width(int? width)
+		{
+			Data.Width = width;
+			return this;
+		}
+
+		public virtual CsvPropertyMap Width(int? width, CsvAlign align)
+		{
+			Data.Width = width;
+			Data.Align = align;
+			return this;
+		}
+
+		public virtual CsvPropertyMap Width(int? width, CsvAlign align, CsvAlignErrorMode errorMode)
+		{
+			Data.Width = width;
+			Data.Align = align;
+			Data.AlignErrorMode = errorMode;
+			return this;
+		}
+
+		public virtual CsvPropertyMap Align(CsvAlign align)
+		{
+			Data.Align = align;
+			return this;
+		}
+
+		public virtual CsvPropertyMap Align(CsvAlign align, CsvAlignErrorMode errorMode)
+		{
+			Data.Align = align;
+			Data.AlignErrorMode = errorMode;
+			return this;
+		}
+
+		public virtual CsvPropertyMap AlignErrorMode(CsvAlignErrorMode errorMode)
+		{
+			Data.AlignErrorMode = errorMode;
+			return this;
+		}
 	}
 }
 

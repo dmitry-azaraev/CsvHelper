@@ -373,9 +373,20 @@ namespace CsvHelper.Configuration
 		/// </summary>
 		private void BuildRequiredQuoteChars()
 		{
-			quoteRequiredChars = delimiter.Length > 1 ?
-				new[] { '\r', '\n' } :
-				new[] { '\r', '\n', delimiter[0] };
+			switch (delimiter.Length)
+			{
+				case 0:
+					quoteRequiredChars = new[] { '\r', '\n' };
+					return;
+
+				case 1:
+					quoteRequiredChars = new[] { '\r', '\n', delimiter[0] };
+					return;
+
+				default:
+					quoteRequiredChars = new[] { '\r', '\n' };
+					return;
+			}
 		}
 		
 #if !NET_2_0

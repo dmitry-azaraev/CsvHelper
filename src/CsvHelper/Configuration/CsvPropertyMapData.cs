@@ -2,6 +2,7 @@
 // This file is a part of CsvHelper and is dual licensed under MS-PL and Apache 2.0.
 // See LICENSE.txt for details or visit http://www.opensource.org/licenses/ms-pl.html for MS-PL and http://opensource.org/licenses/Apache-2.0 for Apache 2.0.
 // http://csvhelper.com
+using System;
 using System.Reflection;
 using CsvHelper.TypeConversion;
 #if !NET_2_0
@@ -92,6 +93,11 @@ namespace CsvHelper.Configuration
 		public virtual object Constant { get; set; }
 
 		/// <summary>
+		/// Gets or sets the constant value type.
+		/// </summary>
+		public virtual Type ConstantType { get; set; }
+
+		/// <summary>
 		/// 
 		/// </summary>
 		public virtual bool IsConstantSet { get; set; }
@@ -105,6 +111,21 @@ namespace CsvHelper.Configuration
 		public virtual Expression ConvertExpression { get; set; }
 
 #endif
+
+		/// <summary>
+		/// Specify fixed width field.
+		/// </summary>
+		public virtual int? Width { get; set; }
+
+		/// <summary>
+		/// Specify padding for fixed width field.
+		/// </summary>
+		public virtual CsvAlign Align { get; set; }
+
+		/// <summary>
+		/// Specify padding error mode.
+		/// </summary>
+		public virtual CsvAlignErrorMode AlignErrorMode { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CsvPropertyMapData"/> class.

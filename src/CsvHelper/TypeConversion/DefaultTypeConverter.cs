@@ -22,15 +22,56 @@ namespace CsvHelper.TypeConversion
 		/// <returns>The string representation of the object.</returns>
 		public virtual string ConvertToString( object value, ICsvWriterRow row, CsvPropertyMapData propertyMapData )
 		{
-			if( value == null )
+			var result = ConvertToStringCore(value, row, propertyMapData);
+
+			var width = propertyMapData.Width;
+			if (!width.HasValue) return result;
+
+			result = result.Trim();
+			if (result.Length == width.Value) return result;
+			if (result.Length > width.Value)
+			{
+				if (propertyMapData.AlignErrorMode == CsvAlignErrorMode.Throw)
+				{
+					throw new CsvTypeConverterException($"Value of property \"{propertyMapData.Member?.Name}\" can't fit in defined width.");
+				}
+				else if (propertyMapData.AlignErrorMode == CsvAlignErrorMode.Trim)
+				{
+					if (propertyMapData.Align == CsvAlign.Left)
+					{
+						return result.Substring(0, width.Value);
+					}
+					else
+					{
+						return result.Substring(result.Length - width.Value, width.Value);
+					}
+				}
+			}
+
+			string paddedValue;
+			if (propertyMapData.Align == CsvAlign.Left)
+			{
+				paddedValue = result.PadRight(width.Value);
+			}
+			else
+			{
+				paddedValue = result.PadLeft(width.Value);
+			}
+
+			return paddedValue;
+		}
+
+		private string ConvertToStringCore(object value, ICsvWriterRow row, CsvPropertyMapData propertyMapData)
+		{
+			if (value == null)
 			{
 				return string.Empty;
 			}
 
 			var formattable = value as IFormattable;
-			if( formattable != null )
+			if (formattable != null)
 			{
-				return formattable.ToString( propertyMapData.TypeConverterOptions.Format, propertyMapData.TypeConverterOptions.CultureInfo );
+				return formattable.ToString(propertyMapData.TypeConverterOptions.Format, propertyMapData.TypeConverterOptions.CultureInfo);
 			}
 
 			return value.ToString();

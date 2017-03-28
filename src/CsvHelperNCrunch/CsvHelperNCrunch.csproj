@@ -309,6 +309,12 @@
     <Compile Include="..\CsvHelper\TypeConversion\UInt64Converter.cs">
       <Link>TypeConversion\UInt64Converter.cs</Link>
     </Compile>
+    <Compile Include="..\CsvHelper\CsvAlign.cs">
+      <Link>CsvAlign.cs</Link>
+    </Compile>
+    <Compile Include="..\CsvHelper\CsvAlignErrorMode.cs">
+      <Link>CsvAlignErrorMode.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CsvHelper.snk" />

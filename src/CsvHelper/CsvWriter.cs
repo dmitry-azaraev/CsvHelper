@@ -780,6 +780,26 @@ namespace CsvHelper
 				if( propertyMap.Data.IsConstantSet )
 				{
 					fieldExpression = Expression.Constant( propertyMap.Data.Constant );
+
+					var typeConverterExpression = Expression.Constant(propertyMap.Data.TypeConverter);
+					if (propertyMap.Data.TypeConverterOptions.CultureInfo == null)
+					{
+						propertyMap.Data.TypeConverterOptions.CultureInfo = configuration.CultureInfo;
+					}
+
+					propertyMap.Data.TypeConverterOptions = TypeConverterOptions.Merge(
+						configuration.TypeConverterOptionsFactory.GetOptions(propertyMap.Data.ConstantType),
+						propertyMap.Data.TypeConverterOptions);
+
+					var method = propertyMap.Data.TypeConverter.GetType().GetMethod("ConvertToString");
+					fieldExpression = Expression.Convert(fieldExpression, typeof(object));
+					fieldExpression = Expression.Call(typeConverterExpression, method, fieldExpression, Expression.Constant(this), Expression.Constant(propertyMap.Data));
+
+					if (type.GetTypeInfo().IsClass)
+					{
+						var areEqualExpression = Expression.Equal(recordParameter, Expression.Constant(null));
+						fieldExpression = Expression.Condition(areEqualExpression, Expression.Constant(string.Empty), fieldExpression);
+					}
 				}
 				else
 				{
@@ -789,7 +809,7 @@ namespace CsvHelper
 						continue;
 					}
 
-					fieldExpression = CreatePropertyExpression( recordParameter, configuration.Maps[type], propertyMap );
+					fieldExpression = CreatePropertyExpression(recordParameter, configuration.Maps[type], propertyMap);
 
 					var typeConverterExpression = Expression.Constant( propertyMap.Data.TypeConverter );
 					if( propertyMap.Data.TypeConverterOptions.CultureInfo == null )
