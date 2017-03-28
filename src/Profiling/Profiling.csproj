@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CsvHelperNCrunch\CsvHelperNCrunch.csproj">
-      <Project>{d65bcb4c-18cf-4aac-8790-cb0bb2ee0088}</Project>
-      <Name>CsvHelperNCrunch</Name>
+    <ProjectReference Include="..\CsvHelper\CsvHelper.csproj">
+      <Project>{ecf9e2a8-3592-4da4-9fab-bfa56ad44b9c}</Project>
+      <Name>CsvHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
