@@ -220,14 +220,15 @@ namespace CsvHelper.Configuration
 		public virtual CsvPropertyMap Find( MemberInfo member )
 		{
 			var existingMap = list.SingleOrDefault( m =>
-				m.Data.Member == member ||
-				m.Data.Member.Name == member.Name &&
-				(
-					m.Data.Member.DeclaringType.IsAssignableFrom( member.DeclaringType ) ||
-					member.DeclaringType.IsAssignableFrom( m.Data.Member.DeclaringType )
+				m.Data.Member != null && (
+					m.Data.Member == member ||
+					m.Data.Member.Name == member.Name &&
+					(
+						m.Data.Member.DeclaringType.IsAssignableFrom( member.DeclaringType ) ||
+						member.DeclaringType.IsAssignableFrom( m.Data.Member.DeclaringType )
+					)
 				)
 			);
-
 			return existingMap;
 		}
 	}

@@ -22,8 +22,8 @@ namespace CsvHelper.Tests.Writing
 			{
 				var list = new List<Test>
 				{
-					new Test { Id = 1 },
-					new Test { Id = 2 }
+					new Test { Id = 1, Value = 10 },
+					new Test { Id = 2, Value = 20 }
 				};
 
 				csv.Configuration.RegisterClassMap<TestWithNameMap>();
@@ -35,9 +35,9 @@ namespace CsvHelper.Tests.Writing
 				var result = reader.ReadToEnd();
 
 				var expected = new StringBuilder();
-				expected.AppendLine( "Id,Constant" );
-				expected.AppendLine( "1,const" );
-				expected.AppendLine( "2,const" );
+				expected.AppendLine( "Id,Constant,Value" );
+				expected.AppendLine( "1,const,10" );
+				expected.AppendLine( "2,const,20" );
 
 				Assert.AreEqual( expected.ToString(), result );
 			}
@@ -53,8 +53,8 @@ namespace CsvHelper.Tests.Writing
 			{
 				var list = new List<Test>
 				{
-					new Test { Id = 1 },
-					new Test { Id = 2 }
+					new Test { Id = 1, Value = 10 },
+					new Test { Id = 2, Value = 20 }
 				};
 
 				csv.Configuration.RegisterClassMap<TestWithNoNameMap>();
@@ -66,9 +66,9 @@ namespace CsvHelper.Tests.Writing
 				var result = reader.ReadToEnd();
 
 				var expected = new StringBuilder();
-				expected.AppendLine( "Id," );
-				expected.AppendLine( "1,const" );
-				expected.AppendLine( "2,const" );
+				expected.AppendLine( "Id,,Value" );
+				expected.AppendLine( "1,const,10" );
+				expected.AppendLine( "2,const,20" );
 
 				Assert.AreEqual( expected.ToString(), result );
 			}
@@ -84,8 +84,8 @@ namespace CsvHelper.Tests.Writing
 			{
 				var list = new List<Test>
 				{
-					new Test { Id = 1 },
-					new Test { Id = 2 }
+					new Test { Id = 1, Value = 10 },
+					new Test { Id = 2, Value = 20 }
 				};
 
 				csv.Configuration.HasHeaderRecord = false;
@@ -98,8 +98,8 @@ namespace CsvHelper.Tests.Writing
 				var result = reader.ReadToEnd();
 
 				var expected = new StringBuilder();
-				expected.AppendLine( "1,const" );
-				expected.AppendLine( "2,const" );
+				expected.AppendLine( "1,const,10" );
+				expected.AppendLine( "2,const,20" );
 
 				Assert.AreEqual( expected.ToString(), result );
 			}
@@ -115,8 +115,8 @@ namespace CsvHelper.Tests.Writing
 			{
 				var list = new List<Test>
 				{
-					new Test { Id = 1 },
-					new Test { Id = 2 }
+					new Test { Id = 1, Value = 10 },
+					new Test { Id = 2, Value = 20 }
 				};
 
 				csv.Configuration.HasHeaderRecord = false;
@@ -129,8 +129,8 @@ namespace CsvHelper.Tests.Writing
 				var result = reader.ReadToEnd();
 
 				var expected = new StringBuilder();
-				expected.AppendLine( "1,const" );
-				expected.AppendLine( "2,const" );
+				expected.AppendLine( "1,const,10" );
+				expected.AppendLine( "2,const,20" );
 
 				Assert.AreEqual( expected.ToString(), result );
 			}
@@ -139,6 +139,7 @@ namespace CsvHelper.Tests.Writing
 		private class Test
 		{
 			public int Id { get; set; }
+            public int Value { get; set; }
 		}
 
 		private sealed class TestWithNameMap : CsvClassMap<Test>
@@ -147,6 +148,7 @@ namespace CsvHelper.Tests.Writing
 			{
 				Map( m => m.Id );
 				Map().Name( "Constant" ).Constant( "const" );
+				Map( m => m.Value );
 			}
 		}
 
@@ -156,6 +158,7 @@ namespace CsvHelper.Tests.Writing
 			{
 				Map( m => m.Id );
 				Map().Constant( "const" );
+				Map(m => m.Value);
 			}
 		}
 	}
