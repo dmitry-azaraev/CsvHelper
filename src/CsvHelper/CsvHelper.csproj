@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>A library for reading and writing CSV files. Extremely fast, flexible, and easy to use. Supports reading and writing of custom class objects.</Description>
+    <Copyright>Copyright � 2009-2016 Josh Close and Contributors</Copyright>
+    <AssemblyTitle>CsvHelper</AssemblyTitle>
+    <VersionPrefix>3.0.0-beta7</VersionPrefix>
+    <Authors>Josh Close</Authors>
+    <TargetFrameworks>net20;net35;net40;net45;net451;netstandard1.3</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>CsvHelper</AssemblyName>
+    <AssemblyOriginatorKeyFile>CsvHelper.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PackageId>CsvHelper</PackageId>
+    <PackageTags>csv;csvhelper;comma;separated;value;delimited</PackageTags>
+    <PackageReleaseNotes>http://joshclose.github.io/CsvHelper/#change-log</PackageReleaseNotes>
+    <PackageIconUrl>https://raw.github.com/JoshClose/CsvHelper/master/logo/Comma-Small.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/JoshClose/CsvHelper</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/JoshClose/CsvHelper/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net20' ">
+    <Reference Include="System" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net35' ">
+    <Reference Include="System" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'portable40-net40+sl5+win8+wp8+wpa81' ">
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Core" />
+    <Reference Include="System" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net20' ">
+    <DefineConstants>$(DefineConstants);NET_2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net35' ">
+    <DefineConstants>$(DefineConstants);NET_3_5</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <DefineConstants>$(DefineConstants);NET_4_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <DefineConstants>$(DefineConstants);NET_4_5</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net451' ">
+    <DefineConstants>$(DefineConstants);NET_4_5_1</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'portable40-net40+sl5+win8+wp8+wpa81' ">
+    <DefineConstants>$(DefineConstants);PCL</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="Microsoft.CSharp" Version="4.0.1" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.1.0" />
+  </ItemGroup>
+
+</Project>
